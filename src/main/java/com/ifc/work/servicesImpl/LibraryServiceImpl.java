@@ -29,7 +29,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Autowired
     private BookRepository bookRepository;
 
-    public ResponseEntity<String> addObserverToLibrary(Long libraryId, UserDto userDto) {
+    public ResponseEntity<String> addObserverToLibrary(Long libraryId, Long userId) {
         LibraryEntity library = libraryRepository.findById(libraryId).orElseThrow(() -> new RuntimeException("Library not found"));
         UserEntity user = new UserEntity(userDto.name(),userDto.cpf(), userDto.birth(),userDto.gender(),userDto.registration(),true);
         library.addObserver(user);

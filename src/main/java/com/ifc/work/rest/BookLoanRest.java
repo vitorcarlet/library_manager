@@ -1,6 +1,7 @@
 package com.ifc.work.rest;
 
 import com.ifc.work.requests.loanBook.ReturnLoanBook;
+import com.ifc.work.requests.loanBook.UpdateLoanBookRequest;
 import com.ifc.work.requests.loanBook.loanBookRequest;
 import com.ifc.work.requests.user.SignUpRequest;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public interface BookLoanRest {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> returnLoanBook(@RequestBody ReturnLoanBook request);
 
-    @PostMapping(path= "/edit")
+    @PostMapping(path= "/update")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> updateLoanBook(@RequestBody loanBookRequest request);
 

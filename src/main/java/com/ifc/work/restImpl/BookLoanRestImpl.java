@@ -4,6 +4,7 @@ import com.ifc.work.dtos.BookDto;
 import com.ifc.work.dtos.BookLoanDto;
 import com.ifc.work.persistence.BookLoanEntity;
 import com.ifc.work.requests.loanBook.ReturnLoanBook;
+import com.ifc.work.requests.loanBook.UpdateLoanBookRequest;
 import com.ifc.work.requests.loanBook.loanBookRequest;
 import com.ifc.work.rest.BookLoanRest;
 import com.ifc.work.services.BookLoanService;
@@ -29,9 +30,9 @@ public class BookLoanRestImpl implements BookLoanRest {
         try{
 
              Long userId = request.getUserId();
-             BookDto bookDto = request.getBookDto();
+             Long bookId = request.getBookId();
              int loanDays= request.getLoanDays();
-            return bookLoanService.loanBook(userId,bookDto,loanDays);
+            return bookLoanService.loanBook(userId,bookId,loanDays);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -43,8 +44,8 @@ public class BookLoanRestImpl implements BookLoanRest {
     public ResponseEntity<String> returnLoanBook( ReturnLoanBook request) {
         try{
             Long userId = request.getUserId();
-            BookDto bookDto = request.getBookDto();
-            return bookLoanService.returnLoanBook(userId,bookDto);
+            Long bookId = request.getBookId();
+            return bookLoanService.returnLoanBook(userId,bookId);
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -56,9 +57,9 @@ public class BookLoanRestImpl implements BookLoanRest {
     public ResponseEntity<String> updateLoanBook(loanBookRequest request) {
         try{
             Long userId = request.getUserId();
-            BookDto bookDto = request.getBookDto();
+            Long bookId = request.getBookId();
             int newLoanDays= request.getLoanDays();
-            return bookLoanService.updateLoanBook(userId, bookDto,newLoanDays);
+            return bookLoanService.updateLoanBook(userId, bookId,newLoanDays);
         }catch (Exception ex){
             ex.printStackTrace();
         }

@@ -17,10 +17,10 @@ import java.util.List;
 @RequestMapping(name="/library")
 public interface LibraryRest {
 
-    @PostMapping("/{libraryId}/observers")
+    @PostMapping("/{libraryId}/addObservers")
     ResponseEntity<Void> addObserverToLibrary(@PathVariable Long libraryId, @RequestBody UserDto userDto);
 
-    @DeleteMapping("/{libraryId}/observers")
+    @DeleteMapping("/{libraryId}/deleteObservers")
     ResponseEntity<Void> removeObserverFromLibrary(@PathVariable Long libraryId, @RequestBody UserDto userDto);
 
     @PostMapping("/{libraryId}/notify")

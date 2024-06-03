@@ -26,9 +26,9 @@ public class LibraryRestImpl implements LibraryRest {
     private LibraryService libraryService;
 
     @Override
-    public ResponseEntity<Void> addObserverToLibrary(Long libraryId, UserDto userDto) {
+    public ResponseEntity<Void> addObserverToLibrary(Long libraryId, Long userId) {
         try {
-            libraryService.addObserverToLibrary(libraryId, userDto);
+            libraryService.addObserverToLibrary(libraryId, userId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -36,9 +36,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> removeObserverFromLibrary(Long libraryId, UserDto userDto) {
+    public ResponseEntity<Void> removeObserverFromLibrary(Long libraryId, Long userId) {
         try {
-            libraryService.removeObserverFromLibrary(libraryId, userDto);
+            libraryService.removeObserverFromLibrary(libraryId, userId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -46,9 +46,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> notifyObserversInLibrary(Long libraryId, BookEntity book) {
+    public ResponseEntity<Void> notifyObserversInLibrary(Long libraryId, Long bookId ) {
         try {
-            libraryService.notifyObserversInLibrary(libraryId, book);
+            libraryService.notifyObserversInLibrary(libraryId, bookId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -56,9 +56,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> addBookToLibrary(Long libraryId, BookEntity book) {
+    public ResponseEntity<Void> addBookToLibrary(Long libraryId, Long bookId) {
         try {
-            libraryService.addBookToLibrary(libraryId, book);
+            libraryService.addBookToLibrary(libraryId, bookId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -66,9 +66,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> removeBookFromLibrary(Long libraryId, BookEntity book) {
+    public ResponseEntity<Void> removeBookFromLibrary(Long libraryId, Long bookId) {
         try {
-            libraryService.removeBookFromLibrary(libraryId, book);
+            libraryService.removeBookFromLibrary(libraryId, bookId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -76,9 +76,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> addUserToLibrary(Long libraryId, UserEntity user) {
+    public ResponseEntity<Void> addUserToLibrary(Long libraryId, Long userId) {
         try {
-            libraryService.addUserToLibrary(libraryId, user);
+            libraryService.addUserToLibrary(libraryId, userId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -86,9 +86,9 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<Void> removeUserFromLibrary(Long libraryId, UserEntity user) {
+    public ResponseEntity<Void> removeUserFromLibrary(Long libraryId, Long userId) {
         try {
-            libraryService.removeUserFromLibrary(libraryId, user);
+            libraryService.removeUserFromLibrary(libraryId, userId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

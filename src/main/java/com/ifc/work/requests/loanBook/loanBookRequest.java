@@ -7,7 +7,7 @@ public class loanBookRequest {
 
 
     private Long userId;
-    private BookDto bookDto;
+    private long bookId;
     private int loanDays;
 
     public Long getUserId() {
@@ -15,10 +15,9 @@ public class loanBookRequest {
     }
 
 
-    public BookDto getBookDto() {
-        return bookDto;
+    public long getBookId() {
+        return bookId;
     }
-
 
     public int getLoanDays() {
         return loanDays;

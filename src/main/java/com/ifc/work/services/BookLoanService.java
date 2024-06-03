@@ -14,11 +14,11 @@ import java.util.List;
 
 public interface BookLoanService {
 
-     ResponseEntity<String> loanBook(Long userId, BookDto bookDto, int diasEmprestimo);
+     ResponseEntity<String> loanBook(Long userId, long bookId, int diasEmprestimo);
 
 
-     ResponseEntity<String> returnLoanBook(Long userId, BookDto bookDto);
+     ResponseEntity<String> returnLoanBook(Long userId, long bookId );
 
 
-     ResponseEntity<String> updateLoanBook(Long userId, BookDto bookDto, int newDiasEmprestimo);
+     ResponseEntity<String> updateLoanBook(Long userId,  Long bookId, int newDiasEmprestimo);
 }

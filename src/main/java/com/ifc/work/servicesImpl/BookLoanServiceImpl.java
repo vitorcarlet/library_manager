@@ -40,14 +40,14 @@ public class BookLoanServiceImpl implements BookLoanService {
     DateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
-    public ResponseEntity<String> loanBook(Long userId, BookDto bookDto, int diasEmprestimo) {
+    public ResponseEntity<String> loanBook(Long userId, long bookId, int diasEmprestimo) {
         try {
             Optional<UserEntity> user = userRepository.findById(userId);
             if (user.isEmpty()) {
                 return null; // Or throw an exception
             }
 
-            Optional<BookEntity> book = bookRepository.findById(bookDto.id());
+            Optional<BookEntity> book = bookRepository.findById(bookId);
             if (book.isEmpty() || book.get().getQuantity() <= 0) {
                 return LibraryUtils.getResponseEntity("Book currently unavailable", HttpStatus.OK);
             }
@@ -80,14 +80,14 @@ public class BookLoanServiceImpl implements BookLoanService {
 
 
     @Override
-    public ResponseEntity<String> returnLoanBook(Long userId, BookDto bookDto) {
+    public ResponseEntity<String> returnLoanBook(Long userId, long bookId) {
         try {
             Optional<UserEntity> userOptional = userRepository.findById(userId);
             if (userOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
 
-            Optional<BookEntity> bookOptional = bookRepository.findById(bookDto.id());
+            Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
             if (bookOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
             }
@@ -120,7 +120,7 @@ public class BookLoanServiceImpl implements BookLoanService {
 
 
     @Override
-    public ResponseEntity<String> updateLoanBook(Long userId, BookDto bookDto, int newDiasEmprestimo) {
+    public ResponseEntity<String> updateLoanBook(Long userId, Long bookId, int newDiasEmprestimo) {
 
         try {
             Optional<UserEntity> userOptional = userRepository.findById(userId);
@@ -128,7 +128,7 @@ public class BookLoanServiceImpl implements BookLoanService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
 
-            Optional<BookEntity> bookOptional = bookRepository.findById(bookDto.id());
+            Optional<BookEntity> bookOptional = bookRepository.findById(bookId);
             if (bookOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
             }
