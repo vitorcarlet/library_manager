@@ -32,7 +32,8 @@ public class BookLoanRestImpl implements BookLoanRest {
              Long userId = request.getUserId();
              Long bookId = request.getBookId();
              int loanDays= request.getLoanDays();
-            return bookLoanService.loanBook(userId,bookId,loanDays);
+             bookLoanService.loanBook(userId,bookId,loanDays);
+            return ResponseEntity.ok("Book added successfully");
         }catch (Exception ex){
             ex.printStackTrace();
         }

@@ -7,13 +7,13 @@ import java.util.List;
 
 public class ReturnLoanBook {
     private Long userId;
-    private Long BookId;
+    private Long bookId;
 
     public Long getUserId() {
         return userId;
     }
 
     public Long getBookId() {
-        return BookId;
+        return bookId;
     }
 }

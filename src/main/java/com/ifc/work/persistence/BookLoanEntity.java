@@ -24,7 +24,7 @@ public class BookLoanEntity {
     @Column(name = "id")
     protected Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "user_id_fk")
     private UserEntity user;
 

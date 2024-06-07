@@ -18,7 +18,7 @@ public interface LibraryService {
      * @param observer Observador que será notificado sobre eventos da biblioteca.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> addObserverToLibrary(Long libraryId, UserDto userDto) throws RuntimeException;
+    ResponseEntity<String> addObserverToLibrary(Long libraryId, Long userId) throws RuntimeException;
 
     /**
      * Remove um observador de uma biblioteca.
@@ -26,7 +26,7 @@ public interface LibraryService {
      * @param observer Observador que será removido.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> removeObserverFromLibrary(Long libraryId,UserDto userDto) throws RuntimeException;
+    ResponseEntity<String> removeObserverFromLibrary(Long libraryId, Long userId) throws RuntimeException;
 
     /**
      * Notifica todos os observadores cadastrados em uma biblioteca sobre um determinado livro.
@@ -34,7 +34,7 @@ public interface LibraryService {
      * @param book Livro a ser notificado.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> notifyObserversInLibrary(Long libraryId, BookEntity book) throws RuntimeException;
+    ResponseEntity<String> notifyObserversInLibrary(Long libraryId, Long bookId) throws RuntimeException;
 
     /**
      * Adiciona um livro a uma biblioteca.
@@ -42,7 +42,7 @@ public interface LibraryService {
      * @param book Livro a ser adicionado.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> addBookToLibrary(Long libraryId, BookEntity book) throws RuntimeException;
+    ResponseEntity<String> addBookToLibrary(Long libraryId, Long bookId) throws RuntimeException;
 
     /**
      * Remove um livro de uma biblioteca.
@@ -50,7 +50,7 @@ public interface LibraryService {
      * @param book Livro a ser removido.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> removeBookFromLibrary(Long libraryId, BookEntity book) throws RuntimeException;
+    ResponseEntity<String> removeBookFromLibrary(Long libraryId, Long bookId) throws RuntimeException;
 
     /**
      * Adiciona um usuário a uma biblioteca.
@@ -58,7 +58,7 @@ public interface LibraryService {
      * @param user Usuário a ser adicionado.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> addUserToLibrary(Long libraryId, UserEntity user) throws RuntimeException;
+    ResponseEntity<String> addUserToLibrary(Long libraryId, Long userId) throws RuntimeException;
 
     /**
      * Remove um usuário de uma biblioteca.
@@ -66,7 +66,7 @@ public interface LibraryService {
      * @param user Usuário a ser removido.
      * @throws RuntimeException Caso a biblioteca não seja encontrada.
      */
-    ResponseEntity<String> removeUserFromLibrary(Long libraryId, UserEntity user) throws RuntimeException;
+    ResponseEntity<String> removeUserFromLibrary(Long libraryId, Long userId) throws RuntimeException;
 
     ResponseEntity<List<BookWrapper>> getBooks(Long libraryId);
 

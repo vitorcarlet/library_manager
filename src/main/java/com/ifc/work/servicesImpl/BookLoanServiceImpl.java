@@ -11,6 +11,7 @@ import com.ifc.work.requests.loanBook.loanBookRequest;
 import com.ifc.work.services.BookLoanService;
 import com.ifc.work.utils.LibraryUtils;
 import constants.LibraryConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,11 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class BookLoanServiceImpl implements BookLoanService {
 
@@ -41,35 +44,30 @@ public class BookLoanServiceImpl implements BookLoanService {
 
     @Override
     public ResponseEntity<String> loanBook(Long userId, long bookId, int diasEmprestimo) {
+        log.info("chegou no addLoan");
         try {
-            Optional<UserEntity> user = userRepository.findById(userId);
-            if (user.isEmpty()) {
-                return null; // Or throw an exception
+            UserEntity user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+            BookEntity book = bookRepository.findById(bookId).orElseThrow(() -> new Exception("Book not found"));
+
+            // Verificar se existe um empréstimo ativo para este livro e usuário
+            List<BookLoanEntity> existingLoans = bookLoanRepository.findByBookAndUser(book, user);
+            for (BookLoanEntity loan : existingLoans) {
+                if (!loan.isReturned()) {
+                    throw new Exception("Book is already loaned and not returned");
+                }
             }
 
-            Optional<BookEntity> book = bookRepository.findById(bookId);
-            if (book.isEmpty() || book.get().getQuantity() <= 0) {
-                return LibraryUtils.getResponseEntity("Book currently unavailable", HttpStatus.OK);
-            }
+            // Criar novo empréstimo
+            BookLoanEntity newLoan = new BookLoanEntity();
+            newLoan.setUser(user);
+            newLoan.setBook(book);
+            newLoan.setLoanDate(new Date());
+            newLoan.setLoanDuration(diasEmprestimo);
+            newLoan.setReturnLoanDate(null);
+            newLoan.setReturned(false);
 
-            BookLoanEntity bookLoan = new BookLoanEntity();
-            bookLoan.setUser(user.get());
-            bookLoan.setBook(book.get());
-
-            // Define as datas de empréstimo
-            LocalDate loanDate = LocalDate.now();
-            LocalDate returnLoanDate = loanDate.plusDays(diasEmprestimo);
-
-            // Converte LocalDate para java.util.Date
-            java.util.Date loanDateUtil = java.sql.Date.valueOf(loanDate);
-            java.util.Date returnLoanDateUtil = java.sql.Date.valueOf(returnLoanDate);
-
-            bookLoan.setLoanDate(loanDateUtil); // Supondo que loanDates seja do tipo Date
-            bookLoan.setLoanDuration(diasEmprestimo);
-            bookLoan.setReturnLoanDate(returnLoanDateUtil); // Supondo que returnLoanDate seja do tipo Date
-
-            bookLoanRepository.save(bookLoan);
-            book.get().setQuantity(book.get().getQuantity() - 1);
+            // Salvar o novo empréstimo
+            bookLoanRepository.save(newLoan);
 
             return LibraryUtils.getResponseEntity("Successfully Loaned", HttpStatus.OK);
         } catch (Exception e) {
