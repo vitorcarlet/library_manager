@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `book_store_visits`
+--
+
+DROP TABLE IF EXISTS `book_store_visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `book_store_visits` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `number_of_people` int DEFAULT NULL,
+  `visit_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book_store_visits`
+--
+
+LOCK TABLES `book_store_visits` WRITE;
+/*!40000 ALTER TABLE `book_store_visits` DISABLE KEYS */;
+INSERT INTO `book_store_visits` VALUES (2,8,'2024-06-11'),(3,54,'2024-06-14');
+/*!40000 ALTER TABLE `book_store_visits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `library_books`
 --
 
@@ -38,6 +63,7 @@ CREATE TABLE `library_books` (
 
 LOCK TABLES `library_books` WRITE;
 /*!40000 ALTER TABLE `library_books` DISABLE KEYS */;
+INSERT INTO `library_books` VALUES (1,2);
 /*!40000 ALTER TABLE `library_books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,6 +90,7 @@ CREATE TABLE `library_books_observers` (
 
 LOCK TABLES `library_books_observers` WRITE;
 /*!40000 ALTER TABLE `library_books_observers` DISABLE KEYS */;
+INSERT INTO `library_books_observers` VALUES (1,3);
 /*!40000 ALTER TABLE `library_books_observers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,6 +117,7 @@ CREATE TABLE `library_users` (
 
 LOCK TABLES `library_users` WRITE;
 /*!40000 ALTER TABLE `library_users` DISABLE KEYS */;
+INSERT INTO `library_users` VALUES (1,3),(1,7);
 /*!40000 ALTER TABLE `library_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +171,7 @@ CREATE TABLE `tb_bookloans` (
   UNIQUE KEY `UK6rxcxhcudg833gjjpmt2hpg76` (`user_id_fk`),
   CONSTRAINT `FK59t47xorn525jf7s3lrim3lq` FOREIGN KEY (`user_id_fk`) REFERENCES `tb_users` (`id`),
   CONSTRAINT `FKi608wocgu1uvba0p1y3wurbsl` FOREIGN KEY (`book_id_fk`) REFERENCES `tb_books` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +180,7 @@ CREATE TABLE `tb_bookloans` (
 
 LOCK TABLES `tb_bookloans` WRITE;
 /*!40000 ALTER TABLE `tb_bookloans` DISABLE KEYS */;
+INSERT INTO `tb_bookloans` VALUES (1,'2024-06-06 00:00:00.000000',2,'2024-06-08 00:00:00.000000',_binary '',2,3);
 /*!40000 ALTER TABLE `tb_bookloans` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +201,7 @@ CREATE TABLE `tb_books` (
   `registration_date` datetime(6) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +210,7 @@ CREATE TABLE `tb_books` (
 
 LOCK TABLES `tb_books` WRITE;
 /*!40000 ALTER TABLE `tb_books` DISABLE KEYS */;
-INSERT INTO `tb_books` VALUES (1,'J.R.R. Tolkien',33556,'Fantasy',1937,14,'2024-06-03 00:43:54.327000','O Hobbit'),(2,'Jane Austen',98765,'Romance',1813,20,'2024-06-03 00:46:02.252000','Orgulho e Preconceito'),(4,'Dan Brown',67890,'Mystery',2003,25,'2024-06-03 00:46:13.062000','O Código Da Vinci'),(5,'Yuval Noah Harari',11223,'Non-Fiction',2011,30,'2024-06-03 00:46:19.174000','Sapiens: Uma Breve História da Humanidade'),(6,'J.R.R. Tolkien',33445,'Fantasy',1937,12,'2024-06-03 00:46:24.417000','O Hobbit');
+INSERT INTO `tb_books` VALUES (1,'J.R.R. Tolkien',33556,'Fantasy',1937,14,'2024-06-03 00:43:54.327000','O Hobbit'),(2,'Jane Austen',98765,'Romance',1813,21,'2024-06-03 00:46:02.252000','Orgulho e Preconceito'),(4,'Dan Brown',67890,'Mystery',2003,25,'2024-06-03 00:46:13.062000','O Código Da Vinci'),(5,'Yuval Noah Harari',11223,'Non-Fiction',2011,30,'2024-06-03 00:46:19.174000','Sapiens: Uma Breve História da Humanidade'),(6,'J.R.R. Tolkien',33445,'Fantasy',1937,12,'2024-06-03 00:46:24.417000','O Hobbit'),(7,'J.R.R. Tolkien',33445,'Fantasy',1937,12,'2024-06-09 23:11:39.820000','O Gdfsdf');
 /*!40000 ALTER TABLE `tb_books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,7 +224,7 @@ DROP TABLE IF EXISTS `tb_libraries`;
 CREATE TABLE `tb_libraries` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,6 +233,7 @@ CREATE TABLE `tb_libraries` (
 
 LOCK TABLES `tb_libraries` WRITE;
 /*!40000 ALTER TABLE `tb_libraries` DISABLE KEYS */;
+INSERT INTO `tb_libraries` VALUES (1),(2);
 /*!40000 ALTER TABLE `tb_libraries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +253,7 @@ CREATE TABLE `tb_users` (
   `name` varchar(255) NOT NULL,
   `registration` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +262,7 @@ CREATE TABLE `tb_users` (
 
 LOCK TABLES `tb_users` WRITE;
 /*!40000 ALTER TABLE `tb_users` DISABLE KEYS */;
-INSERT INTO `tb_users` VALUES (3,_binary '','2000-01-01 00:00:00.000000','123.456.789-00','M','João Silva',0),(7,_binary '','1990-05-10 21:00:00.000000','123.456.789-00','M','Vitor Carlet',0);
+INSERT INTO `tb_users` VALUES (3,_binary '','2000-01-01 00:00:00.000000','123.456.789-00','M','João Silva',0),(7,_binary '','1990-05-10 21:00:00.000000','123.456.789-00','M','Vitor Carlet',0),(8,_binary '','1990-05-10 21:00:00.000000','12345678900','M','AdrianoImperador',0),(9,_binary '','1990-05-10 21:00:00.000000','12345678990','M','LucasVasques',0),(10,_binary '','1990-05-10 21:00:00.000000','13345678990','M','PedroLotto',0);
 /*!40000 ALTER TABLE `tb_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +282,7 @@ CREATE TABLE `tb_users_permissions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKslxf0k2659wk9mvqfvoccb3pv` (`user_credentials_id_fk`),
   CONSTRAINT `FKec8g48508qsrotf3ov2l1hgkr` FOREIGN KEY (`user_credentials_id_fk`) REFERENCES `tb_userscredentials` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +291,7 @@ CREATE TABLE `tb_users_permissions` (
 
 LOCK TABLES `tb_users_permissions` WRITE;
 /*!40000 ALTER TABLE `tb_users_permissions` DISABLE KEYS */;
-INSERT INTO `tb_users_permissions` VALUES (8,_binary '',_binary '',_binary '',7),(12,_binary '',_binary '',_binary '',11);
+INSERT INTO `tb_users_permissions` VALUES (8,_binary '',_binary '',_binary '',7),(12,_binary '',_binary '',_binary '',11),(13,_binary '',_binary '',_binary '',12),(14,_binary '',_binary '',_binary '',13),(15,_binary '',_binary '',_binary '',14);
 /*!40000 ALTER TABLE `tb_users_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +310,7 @@ CREATE TABLE `tb_userscredentials` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKgdwkdvphb6e5nguky13la1ep2` (`user_id_fk`),
   CONSTRAINT `FK7bc0hpemubakk5j6k3eq932m6` FOREIGN KEY (`user_id_fk`) REFERENCES `tb_users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +319,7 @@ CREATE TABLE `tb_userscredentials` (
 
 LOCK TABLES `tb_userscredentials` WRITE;
 /*!40000 ALTER TABLE `tb_userscredentials` DISABLE KEYS */;
-INSERT INTO `tb_userscredentials` VALUES (7,'joaosilva','$2a$08$fHMsuIUHaHt0vbpOnwnagOb8gOnGF3lLnNbovWn2ljl3.MZfzzg3W',3),(11,'vitor123','$2a$10$b0lcFb5ptKqvE3IaoMx7ZO2NWBKGTOQ00dOQIA3qm18BkRcQj93Lu',7);
+INSERT INTO `tb_userscredentials` VALUES (7,'joaosilva','$2a$08$fHMsuIUHaHt0vbpOnwnagOb8gOnGF3lLnNbovWn2ljl3.MZfzzg3W',3),(11,'vitor123','$2a$10$b0lcFb5ptKqvE3IaoMx7ZO2NWBKGTOQ00dOQIA3qm18BkRcQj93Lu',7),(12,'adriano123','$2a$10$ZHeTB0vD/Uo5ENI50GppueXUV8Xm54FrnkKMcPVmR680TZ8qUdTy.',8),(13,'lucas123','$2a$10$FsSW1u9Px.ECyV4/PEbiEuEAfqpUBkQrTknoYzmLNwvtO5z5zLRx2',9),(14,'pedro123','$2a$10$a9ylJnhxVeU7ZcKasTbRJe0ppv6zmgSWRPg9JkAeWVaZN95xf2Qfm',10);
 /*!40000 ALTER TABLE `tb_userscredentials` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -302,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-03  0:59:15
+-- Dump completed on 2024-06-10  1:48:09
