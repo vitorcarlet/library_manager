@@ -42,8 +42,8 @@ public class BookEntity {
 
     //protected BookDecorator livroEdicao;
 
-    @ManyToMany(mappedBy = "books")
-    private Set<LibraryEntity> libraries = new HashSet<>();
+//    @ManyToMany(mappedBy = "books")
+//    private Set<LibraryEntity> libraries = new HashSet<>();
 
     public BookEntity(Long id, String title, String author, int bookCode, int quantity) {
         this.id = id;

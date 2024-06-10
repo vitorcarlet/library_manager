@@ -30,7 +30,7 @@ public class LibraryEntity implements LibrarySubject {
     @Column(name = "id")
     protected Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "library_books",
             joinColumns = @JoinColumn(name = "library_id"),
@@ -38,7 +38,7 @@ public class LibraryEntity implements LibrarySubject {
     )
     private Set<BookEntity> books = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="library_books_observers",
             joinColumns = @JoinColumn(name="library_id"),
@@ -46,7 +46,7 @@ public class LibraryEntity implements LibrarySubject {
     )
     private Set<UserEntity> observers = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="library_users",
             joinColumns = @JoinColumn(name="library_id"),

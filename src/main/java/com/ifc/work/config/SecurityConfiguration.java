@@ -34,6 +34,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/refresh-token").permitAll()
                         .requestMatchers(HttpMethod.POST,"/book").permitAll()
                         .requestMatchers(HttpMethod.POST,"/loan").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/library").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/bookstore-visits").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

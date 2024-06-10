@@ -1,13 +1,10 @@
 package com.ifc.work.restImpl;
 
-import com.ifc.work.dtos.UserCredentialsDto;
-import com.ifc.work.dtos.UserDto;
-import com.ifc.work.dtos.UserPermissionsDto;
-import com.ifc.work.observer.user.UserObserver;
 import com.ifc.work.persistence.BookEntity;
 import com.ifc.work.persistence.UserEntity;
+import com.ifc.work.requests.library.AddBookRequest;
+import com.ifc.work.requests.library.AddUserRequest;
 import com.ifc.work.requests.library.LibraryAddRequest;
-import com.ifc.work.requests.library.UserObserverRequest;
 import com.ifc.work.rest.LibraryRest;
 import com.ifc.work.services.LibraryService;
 import com.ifc.work.utils.LibraryUtils;
@@ -17,10 +14,13 @@ import constants.LibraryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class LibraryRestImpl implements LibraryRest {
@@ -29,31 +29,25 @@ public class LibraryRestImpl implements LibraryRest {
     private LibraryService libraryService;
 
     @Override
-    public ResponseEntity<String> addLibrary(LibraryAddRequest libraryAddRequest) {
+    public ResponseEntity<String> createLibrary(Long libraryId) {
         try {
-            // Extract DTOs from the request object
-            UserDto userDto = request.getUserDto();
-            UserCredentialsDto userCredentialsDto = request.getUserCredentialsDto();
-            UserPermissionsDto userPermissionsDto = request.getUserPermissionsDto();
-
-            // Call the userService to process the sign-up
-            return userService.signUp(userDto, userCredentialsDto, userPermissionsDto);
+            libraryService.createLibrary(libraryId);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return LibraryUtils.getResponseEntity(LibraryConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return LibraryUtils.getResponseEntity(LibraryConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
-    public ResponseEntity<String> editLibrary(LibraryAddRequest libraryAddRequest) {
+    public ResponseEntity<String> editLibrary(Long libraryId, LibraryAddRequest libraryAddRequest ) {
         try {
-            // Extract DTOs from the request object
-            UserDto userDto = request.getUserDto();
-            UserCredentialsDto userCredentialsDto = request.getUserCredentialsDto();
-            UserPermissionsDto userPermissionsDto = request.getUserPermissionsDto();
 
-            // Call the userService to process the sign-up
-            return userService.signUp(userDto, userCredentialsDto, userPermissionsDto);
+            Set<BookEntity> books = new HashSet<>();
+            Set<UserEntity> observers = new HashSet<>();
+            Set<UserEntity> users = new HashSet<>();
+
+
+            return libraryService.editLibrary(books, observers, users,libraryId);
         } catch (Exception ex) {
             ex.printStackTrace();
             return LibraryUtils.getResponseEntity(LibraryConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,13 +57,7 @@ public class LibraryRestImpl implements LibraryRest {
     @Override
     public ResponseEntity<String> removeLibrary(Long libraryId) {
         try {
-            // Extract DTOs from the request object
-            UserDto userDto = request.getUserDto();
-            UserCredentialsDto userCredentialsDto = request.getUserCredentialsDto();
-            UserPermissionsDto userPermissionsDto = request.getUserPermissionsDto();
-
-            // Call the userService to process the sign-up
-            return userService.signUp(userDto, userCredentialsDto, userPermissionsDto);
+            return libraryService.removeLibrary(libraryId);
         } catch (Exception ex) {
             ex.printStackTrace();
             return LibraryUtils.getResponseEntity(LibraryConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -77,9 +65,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> addObserverToLibrary(Long libraryId, Long userId) {
+    public ResponseEntity<String> addObserverToLibrary(Long libraryId, AddUserRequest userId) {
         try {
-            libraryService.addObserverToLibrary(libraryId, userId);
+            String userIdd = userId.getUserId();
+            libraryService.addObserverToLibrary(libraryId, userIdd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -87,9 +76,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> removeObserverFromLibrary(Long libraryId, Long userId) {
+    public ResponseEntity<String> removeObserverFromLibrary(Long libraryId, AddUserRequest userId) {
         try {
-            libraryService.removeObserverFromLibrary(libraryId, userId);
+            String userIdd = userId.getUserId();
+            libraryService.removeObserverFromLibrary(libraryId, userIdd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -97,9 +87,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> notifyObserversInLibrary(Long libraryId, Long bookId ) {
+    public ResponseEntity<String> notifyObserversInLibrary(Long libraryId, AddBookRequest bookId) {
         try {
-            libraryService.notifyObserversInLibrary(libraryId, bookId);
+            String bookIdUserId = bookId.getBookId();
+            libraryService.notifyObserversInLibrary(libraryId, bookIdUserId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -107,9 +98,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> addBookToLibrary(Long libraryId, Long bookId) {
+    public ResponseEntity<String> addBookToLibrary(Long libraryId, AddBookRequest bookId) {
         try {
-            libraryService.addBookToLibrary(libraryId, bookId);
+            String bookIdUserId = bookId.getBookId();
+            libraryService.addBookToLibrary(libraryId, bookIdUserId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -117,9 +109,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> removeBookFromLibrary(Long libraryId, Long bookId) {
+    public ResponseEntity<String> removeBookFromLibrary(Long libraryId, AddBookRequest bookId) {
         try {
-            libraryService.removeBookFromLibrary(libraryId, bookId);
+            String bookIdUserId = bookId.getBookId();
+            libraryService.removeBookFromLibrary(libraryId, bookIdUserId);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -127,9 +120,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> addUserToLibrary(Long libraryId, Long userId) {
+    public ResponseEntity<String> addUserToLibrary(Long libraryId, AddUserRequest userId) {
         try {
-            libraryService.addUserToLibrary(libraryId, userId);
+            String userIdd = userId.getUserId();
+            libraryService.addUserToLibrary(libraryId, userIdd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -137,9 +131,10 @@ public class LibraryRestImpl implements LibraryRest {
     }
 
     @Override
-    public ResponseEntity<String> removeUserFromLibrary(Long libraryId, Long userId) {
+    public ResponseEntity<String> removeUserFromLibrary(Long libraryId, AddUserRequest userId) {
         try {
-            libraryService.removeUserFromLibrary(libraryId, userId);
+            String userIdd = userId.getUserId();
+            libraryService.removeUserFromLibrary(libraryId, userIdd);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

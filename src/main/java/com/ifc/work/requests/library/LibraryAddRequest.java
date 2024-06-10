@@ -15,4 +15,16 @@ public class LibraryAddRequest {
     private Set<BookEntity> books = new HashSet<>();
     private Set<UserEntity> observers = new HashSet<>();
     private Set<UserEntity> users = new HashSet<>();
+
+    public Set<BookEntity> getBooks() {
+        return books;
+    }
+
+    public Set<UserEntity> getObservers() {
+        return observers;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
 }

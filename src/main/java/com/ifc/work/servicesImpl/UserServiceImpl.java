@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> signUp(UserDto userDto, UserCredentialsDto userCredentialsDto, UserPermissionsDto userPermissionsDto) {
-        //newAccountValidationStrategy.forEach(validation -> validation.execute(userDto,userCredentialsDto,userPermissionsDto));
+        newAccountValidationStrategy.forEach(validation -> validation.execute(userDto,userCredentialsDto,userPermissionsDto));
 
         if (Objects.isNull(userPermissionsDto)) {
             // Handle null values appropriately, e.g., set defaults or reject the request
